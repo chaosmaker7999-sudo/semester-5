@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economics of Development - Timed Question Paper</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#ffe4ef; --bg2:#e3ecff; --bg3:#e6fff3;
+  --paper:#fffdf9; --text:#3b3550; --muted:#8b84a3;
+  --line:#f1d9e6; --pink:#ff8fb8; --pink-d:#f06b9c;
+  --lav:#b9a7ff; --mint:#7fdcb5; --mint-d:#4fc99a;
+  --peach:#ffc08a; --sky:#8ec9ff;
+  --card:#fff3f8; --track:#f3e3ec; --warn:#ff5c7a;
+  --shadow:0 10px 30px rgba(190,140,180,.25);
+}
+body.dark{
+  --bg1:#1d1730; --bg2:#14203a; --bg3:#11302c;
+  --paper:#241f38; --text:#efe9ff; --muted:#a79fc4;
+  --line:#3a3258; --card:#2d2748; --track:#3a3258;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:24px 14px 60px; color:var(--text);
+  font-family:'Lora',Georgia,serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3)) fixed;
+  min-height:100vh; transition:background .4s,color .4s;
+}
+.float{position:fixed;font-size:26px;opacity:.5;pointer-events:none;animation:bob 6s ease-in-out infinite;z-index:0}
+@keyframes bob{50%{transform:translateY(-16px) rotate(8deg)}}
+.wrap{max-width:900px;margin:0 auto;position:relative;z-index:1}
+
+/* sticky bar */
+.top{position:sticky;top:10px;z-index:50;display:flex;gap:10px;align-items:stretch;margin-bottom:18px}
+.gtimer{
+  flex:1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--paper);border:2px solid var(--line);border-radius:26px;
+  padding:10px 18px;box-shadow:var(--shadow);font-family:'Fredoka',sans-serif;
+}
+.ring{position:relative;width:64px;height:64px;flex:none}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.ring .tr{fill:none;stroke:var(--track);stroke-width:7}
+.ring .pr{fill:none;stroke:var(--pink);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .4s linear,stroke .3s}
+.ring .face{position:absolute;inset:0;display:grid;place-items:center;font-size:24px}
+.gtime{font-size:2rem;font-weight:600;letter-spacing:2px;min-width:140px;font-variant-numeric:tabular-nums}
+.glabel{font-size:.75rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:-4px}
+.live{margin-left:auto;text-align:right;font-size:.8rem;color:var(--muted);line-height:1.2}
+.live b{display:block;font-size:1.15rem;color:var(--text);font-variant-numeric:tabular-nums}
+.btns{display:flex;gap:6px}
+button{
+  font-family:'Fredoka',sans-serif;border:none;cursor:pointer;color:#fff;font-weight:500;
+  border-radius:999px;padding:8px 16px;font-size:.9rem;transition:transform .15s,box-shadow .15s,filter .2s;
+  box-shadow:0 3px 0 rgba(0,0,0,.12);
+}
+button:hover{transform:translateY(-2px);filter:brightness(1.05)}
+button:active{transform:translateY(1px);box-shadow:none}
+.b-go{background:var(--mint-d)} .b-pause{background:var(--peach)} .b-reset{background:var(--pink-d)}
+.theme{background:var(--lav);width:56px;border-radius:22px;font-size:1.3rem;padding:0;box-shadow:var(--shadow)}
+
+.shake{animation:shake .6s}
+@keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.pulsing .face{animation:tick 1s infinite}
+@keyframes tick{50%{transform:scale(1.2) rotate(10deg)}}
+
+/* paper */
+.paper{
+  background:var(--paper);border:2px solid var(--line);border-radius:30px;
+  padding:38px 40px;box-shadow:var(--shadow);transition:background .4s;
+}
+.header{text-align:center;padding-bottom:16px;margin-bottom:18px;border-bottom:3px dotted var(--pink)}
+.header h1{margin:4px 0;font-size:1.3rem;text-transform:uppercase;letter-spacing:1px}
+.header h2{margin:4px 0;font-size:1.1rem;text-transform:uppercase;color:var(--pink-d)}
+.header h3{margin:4px 0;font-size:1.05rem}
+.meta{display:flex;justify-content:space-between;font-weight:700;margin-bottom:16px}
+.note{background:var(--card);border-left:5px solid var(--lav);border-radius:14px;padding:12px 16px;font-size:.93rem;line-height:1.55;margin-bottom:10px}
+.part{
+  display:table;margin:34px auto 16px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.1rem;
+  background:linear-gradient(90deg,var(--pink),var(--lav));color:#fff;padding:6px 26px;border-radius:999px;
+  box-shadow:0 4px 0 rgba(0,0,0,.1);letter-spacing:2px;
+}
+ol{padding-left:24px}
+ol.main>li{font-weight:700;margin-bottom:10px}
+ol.sub{list-style:lower-roman;font-weight:400;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;margin-top:14px}
+ol.sub li{background:var(--card);border-radius:12px;padding:8px 12px 8px 4px;margin-left:8px}
+ol.qs>li{font-weight:400;line-height:1.55;margin-bottom:22px;background:var(--card);border-radius:18px;padding:14px 18px 14px 8px;margin-left:8px}
+.marks{font-weight:700;color:var(--pink-d);margin-left:8px;white-space:nowrap}
+
+/* question timer */
+.qtimer{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 2px -14px;width:fit-content;
+  background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;
+  font-family:'Fredoka',sans-serif;font-weight:400;
+}
+.qtimer .ring{width:42px;height:42px}
+.qtimer .ring .tr,.qtimer .ring .pr{stroke-width:8}
+.qtimer .ring .face{font-size:15px}
+.qtimer .ring .pr{stroke:var(--mint-d)}
+.qtime{font-size:1.2rem;font-weight:600;min-width:62px;font-variant-numeric:tabular-nums}
+.qtimer button{padding:4px 11px;font-size:.8rem}
+.qtimer.warn .pr{stroke:var(--warn)} .qtimer.warn .qtime{color:var(--warn)}
+.gtimer.warn .pr{stroke:var(--warn)} .gtimer.warn .gtime{color:var(--warn)}
+.end{text-align:center;margin-top:34px;font-size:1.4rem;letter-spacing:6px}
+
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,120px);background:var(--paper);
+  border:2px solid var(--pink);border-radius:999px;padding:12px 24px;font-family:'Fredoka',sans-serif;
+  box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.3,1.6,.5,1);z-index:100;
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:640px){
+  .paper{padding:24px 16px} ol.sub{grid-template-columns:1fr}
+  .live{display:none} .gtime{font-size:1.6rem;min-width:110px}
+}
+@media print{
+  body{background:#fff;color:#000;padding:0} .float,.top,.qtimer,.toast{display:none}
+  .paper{box-shadow:none;border:none;padding:0}
+  .part{background:none;color:#000;box-shadow:none;border-bottom:1px solid #000;border-radius:0}
+  ol.qs>li,ol.sub li,.note{background:none}
+}
+</style>
+</head>
+<body>
+<span class="float" style="left:4%;top:18%">🌸</span>
+<span class="float" style="right:5%;top:30%;animation-delay:1s">⭐</span>
+<span class="float" style="left:6%;top:65%;animation-delay:2s">📚</span>
+<span class="float" style="right:4%;top:75%;animation-delay:3s">✏️</span>
+
+<div class="wrap">
+  <div class="top">
+    <div class="gtimer" id="gbox">
+      <div class="ring" id="gring">
+        <svg viewBox="0 0 64 64"><circle class="tr" cx="32" cy="32" r="26"/><circle class="pr" cx="32" cy="32" r="26"/></svg>
+        <div class="face">⏰</div>
+      </div>
+      <div>
+        <div class="glabel">Exam time left</div>
+        <div class="gtime" id="gtime">03:00:00</div>
+      </div>
+      <div class="btns">
+        <button class="b-go" id="gstart">▶ Start</button>
+        <button class="b-pause" id="gpause">⏸ Pause</button>
+        <button class="b-reset" id="greset">↺ Reset</button>
+      </div>
+      <div class="live"><span id="date"></span><b id="now"></b></div>
+    </div>
+    <button class="theme" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+
+  <div class="paper">
+    <div class="header">
+      <h1>B.A./B.Sc. (General) 5th Semester</h1>
+      <h2>Economics (In all Mediums)</h2>
+      <h3>Paper: Economics of Development</h3>
+    </div>
+    <div class="meta"><span>Time Allowed: Three Hours]</span><span>[Maximum Marks: 90</span></div>
+    <div class="note"><strong>Note:</strong>
+      (1) This question paper consists of five Parts. From Part-A attempt any NINE questions, each question carries 2 marks. Every answer should not exceed 25 to 30 words.<br>
+      (2) Attempt ONE question each from the other Parts, each question carries 18 marks.
+    </div>
+
+    <div class="part">PART-A</div>
+    <ol class="main">
+      <li>Attempt any NINE of the following: <span class="marks">9 × 2 = 18</span>
+        <div class="qtimer" data-id="partA" data-min="20"></div>
+        <ol class="sub">
+          <li>Define Disguised Unemployment.</li>
+          <li>What is meant by Purchasing Power Parity (PPP)?</li>
+          <li>State the formula for calculating Real Per Capita Income.</li>
+          <li>What is Social Overhead Capital (SOC)?</li>
+          <li>Define the 'Warranted Rate of Growth'.</li>
+          <li>What is meant by Backward and Forward Linkages?</li>
+          <li>Briefly explain the concept of Social Dualism.</li>
+          <li>What is an Outward-looking strategy?</li>
+          <li>Define Price Mechanism.</li>
+          <li>Name the agency that prepares the Human Development Index (HDI).</li>
+          <li>What is meant by the Indivisibility of Demand?</li>
+          <li>Define Export Promotion.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <div class="part">PART-B</div>
+    <ol class="qs" start="2">
+      <li>Define an underdeveloped economy. What are its main features? <span class="marks">18</span>
+        <div class="qtimer" data-id="q2" data-min="35"></div></li>
+      <li>Explain the determinants of economic development. <span class="marks">18</span>
+        <div class="qtimer" data-id="q3" data-min="35"></div></li>
+    </ol>
+
+    <div class="part">PART-C</div>
+    <ol class="qs" start="4">
+      <li>Explain the Lewis theory of unlimited supply of labour. (Critically examine it) <span class="marks">18</span>
+        <div class="qtimer" data-id="q4" data-min="35"></div></li>
+      <li>Distinguish between Social and Technological Dualism. <span class="marks">18</span>
+        <div class="qtimer" data-id="q5" data-min="35"></div></li>
+    </ol>
+
+    <div class="part">PART-D</div>
+    <ol class="qs" start="6">
+      <li>Critically explain the Classical model of economic growth. <span class="marks">18</span>
+        <div class="qtimer" data-id="q6" data-min="35"></div></li>
+      <li>Critically examine the Solow (Neo-Classical) model of growth. <span class="marks">18</span>
+        <div class="qtimer" data-id="q7" data-min="35"></div></li>
+    </ol>
+
+    <div class="part">PART-E</div>
+    <ol class="qs" start="8">
+      <li>Explain the stages of economic growth given by W.W. Rostow. <span class="marks">18</span>
+        <div class="qtimer" data-id="q8" data-min="35"></div></li>
+      <li>Explain the merits and demerits of labour-intensive techniques of production. <span class="marks">18</span>
+        <div class="qtimer" data-id="q9" data-min="35"></div></li>
+    </ol>
+
+    <div class="end">✿ ✿ ✿</div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- theme ---------- */
+const themeBtn = document.getElementById('themeBtn');
+function setTheme(dark){
+  document.body.classList.toggle('dark', dark);
+  themeBtn.textContent = dark ? '☀️' : '🌙';
+  try{ localStorage.setItem('theme', dark ? 'dark' : 'light'); }catch(e){}
+}
+try{ setTheme(localStorage.getItem('theme') === 'dark'); }catch(e){}
+themeBtn.onclick = () => setTheme(!document.body.classList.contains('dark'));
+
+/* ---------- toast ---------- */
+const toastEl = document.getElementById('toast');
+let toastT;
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3500);
+}
+
+/* ---------- beep ---------- */
+let actx;
+function beep(){
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    [880, 1100, 1320].forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      o.connect(g); g.connect(actx.destination);
+      const t = actx.currentTime + i * 0.18;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.25, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.start(t); o.stop(t + 0.18);
+    });
+  }catch(e){}
+}
+
+/* ---------- generic timer (timestamp based = accurate) ---------- */
+const C = 2 * Math.PI * 26;   // ring circumference
+function makeTimer({totalSec, ringEl, timeEl, boxEl, fmt, warnAt, faces, onDone}){
+  const prog = ringEl.querySelector('.pr');
+  const face = ringEl.querySelector('.face');
+  prog.style.strokeDasharray = C;
+  let left = totalSec * 1000, endAt = 0, id = null, running = false;
+
+  function paint(){
+    const s = Math.max(0, Math.ceil(left / 1000));
+    timeEl.textContent = left <= 0 && faces.done ? fmt(0) : fmt(s);
+    prog.style.strokeDashoffset = C * (1 - left / (totalSec * 1000));
+    boxEl.classList.toggle('warn', s <= warnAt && s > 0 || left <= 0);
+    ringEl.classList.toggle('pulsing', running);
+    face.textContent = left <= 0 ? faces.done : running ? faces.run : faces.idle;
+  }
+  function tick(){
+    left = endAt - Date.now();
+    if(left <= 0){ left = 0; stop(); paint(); onDone && onDone(); return; }
+    paint();
+  }
+  function stop(){ clearInterval(id); running = false; }
+  return {
+    start(){ if(running || left <= 0) return; endAt = Date.now() + left; running = true; id = setInterval(tick, 200); paint(); },
+    pause(){ if(!running) return; left = endAt - Date.now(); stop(); paint(); },
+    reset(){ stop(); left = totalSec * 1000; paint(); },
+    paint
+  };
+}
+const hms = s => [Math.floor(s/3600), Math.floor(s%3600/60), s%60].map(n => String(n).padStart(2,'0')).join(':');
+const ms  = s => [Math.floor(s/60), s%60].map(n => String(n).padStart(2,'0')).join(':');
+
+/* ---------- global 3-hour timer ---------- */
+const gbox = document.getElementById('gbox');
+const gT = makeTimer({
+  totalSec: 3*3600, ringEl: document.getElementById('gring'),
+  timeEl: document.getElementById('gtime'), boxEl: gbox, fmt: hms, warnAt: 900,
+  faces: {idle:'⏰', run:'🏃', done:'🔔'},
+  onDone(){ beep(); gbox.classList.add('shake'); setTimeout(()=>gbox.classList.remove('shake'),700); toast('⏰ Time’s up! Pens down ✏️'); }
+});
+document.getElementById('gstart').onclick = () => gT.start();
+document.getElementById('gpause').onclick = () => gT.pause();
+document.getElementById('greset').onclick = () => gT.reset();
+gT.paint();
+
+/* ---------- per-question timers ---------- */
+document.querySelectorAll('.qtimer').forEach(el => {
+  const min = +el.dataset.min;
+  el.innerHTML = `
+    <div class="ring"><svg viewBox="0 0 64 64"><circle class="tr" cx="32" cy="32" r="26"/><circle class="pr" cx="32" cy="32" r="26"/></svg><div class="face">🌱</div></div>
+    <div class="qtime"></div>
+    <div class="btns">
+      <button class="b-go">▶</button><button class="b-pause">⏸</button><button class="b-reset">↺</button>
+    </div>`;
+  const t = makeTimer({
+    totalSec: min*60, ringEl: el.querySelector('.ring'), timeEl: el.querySelector('.qtime'),
+    boxEl: el, fmt: ms, warnAt: 300, faces: {idle:'🌱', run:'🌿', done:'🌸'},
+    onDone(){ beep(); el.classList.add('shake'); setTimeout(()=>el.classList.remove('shake'),700); toast('🌸 Time’s up for this question!'); }
+  });
+  const [go, pa, re] = el.querySelectorAll('button');
+  go.onclick = () => t.start(); pa.onclick = () => t.pause(); re.onclick = () => t.reset();
+  t.paint();
+});
+
+/* ---------- live clock ---------- */
+function clock(){
+  const d = new Date();
+  document.getElementById('now').textContent = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  document.getElementById('date').textContent = d.toLocaleDateString([], {weekday:'short', day:'numeric', month:'short'});
+}
+clock(); setInterval(clock, 1000);
+</script>
+</body>
+</html>
